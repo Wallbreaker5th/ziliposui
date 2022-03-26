@@ -192,10 +192,13 @@ export default {
       }
       this.InvalidInput = false;
       this.Guesses.push({ s: this.Guessing, index: this.Guesses.length });
+      this.$hmt.push(['_trackEvent', 'Game', 'Operation', 'Guess', this.Guessing.length]);
       if (this.Guessing == this.Answer) {
         this.Win = true;
+        this.$hmt.push(['_trackEvent', 'Game', 'Result', 'Win', this.Guessing.length]);
       } else if (this.Guesses.length >= 15) {
         this.Lose = true;
+        this.$hmt.push(['_trackEvent', 'Game', 'Result', 'Lose', this.Guesses.length]);
       }
       this.Guessing = "";
       var end_of_today = new Date();
