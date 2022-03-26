@@ -1,0 +1,55 @@
+@font-face {
+    font-family: 'HanComponents';
+    src: url('../../static/SourceHanSerifSC-VF-components.ttf') format('truetype');
+}
+
+.han-component {
+    font-family: HanComponents, serif;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+}
+
+.han-character {
+    font-family: serif;
+    line-height: 4.5rem;
+}
+
+.han-component.unknown,
+.han-component.idc,
+.han-character.unknown {
+    color: black;
+}
+
+.han-component.right-position {
+    color: #248067;
+}
+
+.han-character.right-position {
+    background-color: #248067;
+    color: white;
+}
+
+.han-component.wrong-position,
+.han-character.wrong-position {
+    color: #FB8B05;
+}
+
+.han-component.not-exist,
+.han-character.not-exist {
+    color: #aaa;
+}
+
+.han-component.idc {
+    font-size: 0.7rem;
+    margin: 0.1rem;
+}
+
+.hide {
+    opacity: 0.7;
+    background-color: currentColor;
+}
+
+.han-character.right-position.hide {
+    color: #248067;
+}
