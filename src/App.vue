@@ -32,9 +32,13 @@
           >
           <span v-if="Lose">，答案：{{ Hide ? "？？？？" : Answer }}</span>
           <br />
-          <span style="color: grey">字离破碎 | ziliposui.vercel.app | {{ new Date().getFullYear() }}/{{ new Date().getMonth() + 1 }}/{{ new Date().getDate() }}</span>
+          <span style="color: grey"
+            >字离破碎 | ziliposui.vercel.app | {{ new Date().getFullYear() }}/{{
+              new Date().getMonth() + 1
+            }}/{{ new Date().getDate() }}</span
+          >
         </div>
-        
+
         <div style="text-align: center" v-if="Win || Lose">
           <div class="row justify-space-around">
             <v-switch v-model="Hide" label="开启/关闭遮罩"></v-switch>
@@ -103,6 +107,7 @@ export default {
     InvalidInput: false,
     Hide: false,
     Credits: false,
+    IdsData: require("../static/ids.json"),
   }),
 
   mounted() {
@@ -168,13 +173,24 @@ export default {
     //   }
     // }
 
-    var md5 = this.$md5(sdate);
-    var len = all_answers.length;
-    var idx = 0;
-    for (i = 0; i < md5.length; i++) {
-      idx = (idx * 16 + parseInt(md5[i], 16)) % len;
+    var md5 = sdate;
+    // eslint-disable-next-line
+    while (true) {
+      md5 = this.$md5(md5);
+      var len = all_answers.length;
+      var idx = 0;
+      for (i = 0; i < md5.length; i++) {
+        idx = (idx * 16 + parseInt(md5[i], 16)) % len;
+      }
+      this.Answer = all_answers[idx];
+      var sum_len = 0;
+      for (i = 0; i < this.Answer.length; i++) {
+        sum_len += Math.ceil(this.IdsData[this.Answer[i]].length / 2);
+      }
+      if (new Date() <= new Date("2022/03/27 23:59:59") || sum_len >= 8) {
+        break;
+      }
     }
-    this.Answer = all_answers[idx];
     if (this.Guesses.length > 0) {
       if (this.Guesses[this.Guesses.length - 1].s == this.Answer) {
         this.Win = true;
@@ -192,13 +208,31 @@ export default {
       }
       this.InvalidInput = false;
       this.Guesses.push({ s: this.Guessing, index: this.Guesses.length });
-      this.$hmt.push(['_trackEvent', 'Game', 'Operation', 'Guess', this.Guessing.length]);
+      this.$hmt.push([
+        "_trackEvent",
+        "Game",
+        "Operation",
+        "Guess",
+        this.Guessing.length,
+      ]);
       if (this.Guessing == this.Answer) {
         this.Win = true;
-        this.$hmt.push(['_trackEvent', 'Game', 'Result', 'Win', this.Guessing.length]);
+        this.$hmt.push([
+          "_trackEvent",
+          "Game",
+          "Result",
+          "Win",
+          this.Guessing.length,
+        ]);
       } else if (this.Guesses.length >= 15) {
         this.Lose = true;
-        this.$hmt.push(['_trackEvent', 'Game', 'Result', 'Lose', this.Guesses.length]);
+        this.$hmt.push([
+          "_trackEvent",
+          "Game",
+          "Result",
+          "Lose",
+          this.Guesses.length,
+        ]);
       }
       this.Guessing = "";
       var end_of_today = new Date();
