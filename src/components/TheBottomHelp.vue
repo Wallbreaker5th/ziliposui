@@ -53,7 +53,7 @@
 
         <p>当四个格子都为青色时，你便赢得了游戏！</p>
 
-        <v-btn dark color="green" @click="OpenHelp = !OpenHelp">
+        <v-btn dark color="green" @click="OpenHelp = !OpenHelp" class="mb-4">
           开始游戏
         </v-btn>
 

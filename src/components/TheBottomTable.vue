@@ -7,6 +7,7 @@
     </template>
     <v-sheet>
       <div class="py-3 mx-6" style="max-height: 500px; overflow-y: scroll">
+        <p>提示：表内部件大致按照出现频率排序。</p>
         <div v-for="component in hanComponents"
           :key="component.frequency*10000+component.index"
           :class="'han-component '+component.status">
