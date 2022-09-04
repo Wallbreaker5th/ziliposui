@@ -33,7 +33,7 @@
           <span v-if="Lose">，答案：{{ Hide ? "？？？？" : Answer }}</span>
           <br />
           <span style="color: grey"
-            >字离破碎 | ziliposui.vercel.app | {{ new Date().getFullYear() }}/{{
+            >字离破碎 | ziliposui.netlify.app | {{ new Date().getFullYear() }}/{{
               new Date().getMonth() + 1
             }}/{{ new Date().getDate() }}</span
           >
@@ -49,7 +49,7 @@
         <TheBottomTable :han-components="HanComponents" />
         <div style="text-align: center">
           By 破壁人五号 |
-          <a href="https://intercity-metro.vercel.app">地铁换城</a> |
+          <a href="https://intercity-metro.netlify.app">地铁换城</a> |
           <a @click="Credits = !Credits">Credits</a>
         </div>
         <v-bottom-sheet v-model="Credits">
