@@ -14,7 +14,7 @@
           :Hide="Hide"
           v-on:new-known="NewKnown"
         ></SingleIdiom>
-        <div v-if="!Win && !Lose" style="width: 320px" class="mx-auto">
+        <div v-if="(!Win && !Lose) || ShowInput" style="width: 320px" class="mx-auto">
           <SingleIdiom :Guess="Guessing" Answer=""></SingleIdiom>
           <v-text-field
             v-model="Guessing"
@@ -43,7 +43,7 @@
           <div class="row justify-space-around">
             <v-switch v-model="Hide" label="开启/关闭遮罩"></v-switch>
           </div>
-          分享时建议开启遮罩，避免剧透
+          分享时建议开启遮罩<span @click="ShowInput = true;">，</span>避免剧透
         </div>
         <TheBottomHelp />
         <TheBottomTable :han-components="HanComponents" />
@@ -108,6 +108,7 @@ export default {
     Hide: false,
     Credits: false,
     IdsData: require("../static/ids.json"),
+    ShowInput: false,
   }),
 
   mounted() {
@@ -202,6 +203,10 @@ export default {
 
   methods: {
     MakeGuess() {
+      if (this.Guessing == "FORCE_NEW_GAME") {
+        this.ForceNewGame();
+        return;
+      }
       if (!this.Idioms.has(this.Guessing)) {
         this.InvalidInput = true;
         return;
@@ -260,6 +265,16 @@ export default {
         }
       }
     },
+    ForceNewGame() {
+      this.Guesses = [];
+      this.Guessing = "";
+      // Choose an answer randomly
+      var all_answers = require("../static/answers.json");
+      this.Answer = all_answers[Math.floor(Math.random() * all_answers.length)];
+      this.Win = false;
+      this.Lose = false;
+      this.$cookies.remove("game_today");
+    }
   },
 };
 </script>
