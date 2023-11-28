@@ -55,7 +55,7 @@
         <v-bottom-sheet v-model="Credits">
           <v-sheet style="text-align: center">
             <div class="py-3 mx-6">
-              灵感来自：<a href="https://www.powerlanguage.co.uk/wordle/"
+              灵感来自：<a href="https://www.nytimes.com/games/wordle/index.html"
                 >Wordle</a
               >
               和 <a href="https://handle.antfu.me/">汉兜</a>
