@@ -49,7 +49,7 @@
         <TheBottomTable :han-components="HanComponents" />
         <div style="text-align: center">
           By <a href="https://www.wallbreaker5th.top">破壁人五号</a> |
-          <a href="https://netlify.wallbreaker5th.top">地铁换城</a> |
+          <a href="https://metro.wallbreaker5th.top">地铁换城</a> |
           <a @click="Credits = !Credits">Credits</a>
         </div>
         <v-bottom-sheet v-model="Credits">
